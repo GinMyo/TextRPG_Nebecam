@@ -1,0 +1,36 @@
+# Visual Studio 관련
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# 빌드 결과물
+bin/
+obj/
+[Bb]uild/
+[Bb]uilds/
+
+# NuGet 관련
+*.nupkg
+*.snupkg
+packages/
+*.nuspec
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# 기타
+*.log
+*.tmp
+*.cache
+*.db
+*.pid
+
+# Rider, JetBrains, Resharper 등
+.idea/
+*.DotSettings.user
+
+# 시스템 파일
+.DS_Store
+Thumbs.db
