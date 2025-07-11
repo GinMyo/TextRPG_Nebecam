@@ -12,12 +12,10 @@
 
     internal class GameBoard
     {
-
-
         static void Main(string[] args) 
         {
             bool isMakeCharacter = false;
-            
+            int sceneNumber = 0;
 
             if (isMakeCharacter == false)
             {
@@ -25,6 +23,26 @@
                 isMakeCharacter = true;
                 Console.Clear();
             }
+
+            while (true)
+            {
+                switch (sceneNumber)
+                {
+                    case 0:
+                        MainScene();
+                        break;
+                    
+
+                    default:
+                        Console.WriteLine("잘못된 입력입니다.");
+                        break;
+                }
+
+                Console.Write("\n>> ");
+                sceneNumber = int.Parse(Console.ReadLine());
+
+            }
+
             
             
         }
@@ -44,7 +62,8 @@
                 Console.WriteLine("\n원하시는 직업을 설정해주세요.");
                 Console.WriteLine("1. 전사");
                 Console.WriteLine("2. 도적");
-                Console.Write("\n\n>> ");
+
+                Console.Write("\n>> ");
 
                 int jobInput = int.Parse(Console.ReadLine());
 
@@ -64,8 +83,17 @@
                 }
                 break;
             }
+        }
 
+        static void MainScene()
+        {
+            Console.WriteLine("스파르타 마을에 오신 여러분 환영합니다.");
+            Console.WriteLine("이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.\n");
 
+            Console.WriteLine("1. 상태 보기");
+            Console.WriteLine("2. 인벤토리");
+            Console.WriteLine("3. 상점");
+            
         }
     
     }
