@@ -24,6 +24,7 @@ namespace TextRPG
     public class Scenes
     {
         private PlayerStatus playerStatus;      // 스텟 클래스 필드 선언
+        System_Shop system_Shop = new System_Shop();    // 상점 클래스 인스턴스화
 
 
         public string InputRemote()       // 중복되는 인풋 코드를 메서드화
@@ -179,12 +180,12 @@ namespace TextRPG
         // 상점 씬 //
         public void Scene_Shop()
         {
-            System_Shop system_Shop = new System_Shop();
-
+            
             while (true)
             {
+
                 Console.WriteLine("상점");
-                Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.");
+                Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.\n");
 
                 Console.WriteLine("[보유 골드]");
                 Console.WriteLine(playerStatus.gold + "G\n");
@@ -208,6 +209,46 @@ namespace TextRPG
                         break;
 
                     case "1":
+                        Console.Clear();
+                        Scene_Shop_Buy();
+                        continue;
+
+                    default:
+                        WrongInput();
+                        continue;
+                }
+            }
+        }
+
+        public void Scene_Shop_Buy()
+        {
+
+            while (true)
+            {
+
+                Console.WriteLine("상점 - 아이템 구매");
+                Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.\n");
+
+                Console.WriteLine("[보유 골드]");
+                Console.WriteLine(playerStatus.gold + "G\n");
+
+                Console.WriteLine("[아이템 목록]");
+                system_Shop.BuyItems();     // 아이템 구매 목록
+
+                Console.WriteLine("");
+
+                Console.WriteLine("0. 나가기");
+
+                string input = InputRemote();
+
+                switch (input)
+                {
+                    case "0":
+                        Console.Clear();
+                        Scene_Shop();
+                        break;
+
+                    case "1":
                         Console.Write("아이템 구매");
                         continue;
 
@@ -215,6 +256,8 @@ namespace TextRPG
                         WrongInput();
                         continue;
                 }
+
+            
             }
         }
     }
@@ -301,10 +344,10 @@ namespace TextRPG
         }
 
         // id를 통해 아이템을 가져오는 메서드
-        public Items_Data GetItemById(int id)
-        {
-            return ItemsList.Find(item => item.Id == id);
-        }
+        //public Items_Data GetItemById(int id)
+        //{
+        //    return ItemsList.Find(item => item.Id == id);
+        //}
     }
 
 
@@ -321,20 +364,27 @@ namespace TextRPG
         }
     }
 
+    /* 상점 관리 시스템 */
     public class System_Shop
     {
         Items items = new Items();
+        
+        // 상품 목록
         public void ShopList()
         {
             foreach (var item in items.ItemsList)
             {
-                Console.WriteLine($"- {item.Name}\t| {item.StatType} +{item.StatValue}\t| {item.Text}\t\t\t| {item.Price} G");
+                Console.WriteLine($"- {item.Name}\t| {item.StatType} +{item.StatValue}\t| {item.Text}\t| {((item.IsBuy == true) ? "구매완료" : item.Price)} G");
             }
         }
 
+        // 상품 구매 목록 (item.id 추가)
         public void BuyItems()
         {
-
+            foreach (var item in items.ItemsList)
+            {
+                Console.WriteLine($"- {item.Id} {item.Name}\t| {item.StatType} +{item.StatValue}\t| {item.Text}\t| {((item.IsBuy == true) ? "구매완료" : item.Price)} G");
+            }
         }
 
     }
