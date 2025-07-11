@@ -10,15 +10,12 @@ namespace TextRPG
             Scenes scenes = new Scenes();       // Scenes 클래스 인스턴스화
 
 
-            scenes.MakeCharacterScene();     // 캐릭터 생성 씬 실행
-               
+            scenes.MakeCharacterScene();    // 캐릭터 생성 씬 실행
+        
             Console.Clear();
-
-            scenes.MainScene();         // 게임 시작 씬 실행
+            scenes.MainScene();     // 게임 시작 씬 실행
             
         }
-        
-
     }
     
     public class Scenes     // 장면을 관리하는 클래스
@@ -26,10 +23,10 @@ namespace TextRPG
         private PlayerStatus playerStatus;      // 스텟 클래스 필드 선언
 
 
-        public int InputRemote()       // 중복되는 인풋 코드를 메서드화
+        public string InputRemote()       // 중복되는 인풋 코드를 메서드화
         {
             Console.Write("\n>> ");
-            return int.Parse(Console.ReadLine());
+            return Console.ReadLine();
         }
 
 
@@ -48,15 +45,15 @@ namespace TextRPG
                 Console.WriteLine("1. 전사");
                 Console.WriteLine("2. 도적");
 
-                int input = InputRemote();
+                string input = InputRemote();
 
                 switch (input)       // 직업 결정
                 {
-                    case 1:
+                    case "1":
                         playerStatus.job = "전사";
                         break;
 
-                    case 2:
+                    case "2":
                         playerStatus.job = "도적";
                         break;
 
@@ -80,18 +77,25 @@ namespace TextRPG
                 Console.WriteLine("2. 인벤토리");
                 Console.WriteLine("3. 상점");
 
-                int input = InputRemote();
+                string input = InputRemote();
 
                 switch (input)
                 {
-                    case 1:
+                    case "1":
                         Console.Clear();
                         StatusScene();
                         break;
-                    case 2:
+
+                    case "2":
+                        Console.Clear();
+                        InventoryScene();
                         break;
-                    case 3:
+
+                    case "3":
+                        Console.Clear();
+                        ShopScene();
                         break;
+
                     default:
                         Console.Clear();
                         Console.WriteLine("<<올바른 값을 입력해주세요.>>\n");
@@ -117,11 +121,11 @@ namespace TextRPG
 
                 Console.WriteLine("\n0. 나가기");
 
-                int input = InputRemote();
+                string input = InputRemote();
 
                 switch (input)
                 {
-                    case 0:
+                    case "0":
                         Console.Clear();
                         MainScene();
                         break;
@@ -145,11 +149,11 @@ namespace TextRPG
                 Console.WriteLine("1. 장착 관리");
                 Console.WriteLine("0. 나가기");
 
-                int input = InputRemote();
+                string input = InputRemote();
 
                 switch (input)
                 {
-                    case 0:
+                    case "0":
                         Console.Clear();
                         MainScene();
                         break;
@@ -159,18 +163,55 @@ namespace TextRPG
                         continue;
                 }
             }
+        }
 
+        public void ShopScene()
+        {
+            while(true)
+            {
+                Console.WriteLine("상점");
+                Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.");
+
+                Console.WriteLine("[보유 골드]");
+                Console.WriteLine(playerStatus.gold + "G\n");
+
+                Console.WriteLine("[아이템 목록]");
+                // 아이템 목록 연결
+                Console.WriteLine("");
+
+                Console.WriteLine("1. 아이템 구매");
+                Console.WriteLine("0. 나가기");
+
+                string input = InputRemote();
+
+                switch (input)
+                {
+                    case "0":
+                        Console.Clear();
+                        MainScene();
+                        break;
+                    case "1":
+                        Console.Write("아이템 구매");
+                        continue;
+                    default:
+                        Console.Clear();
+                        Console.WriteLine("<<올바른 값을 입력해주세요.>>\n");
+                        continue;
+                }
+
+            }
+        }
     }
+
+
     class PlayerStatus       // 캐릭터 스텟
     {
-        public string name;
-        public string job;
-        public int lv = 01;
-        public int atk = 10;
-        public int def = 5;
-        public int hp = 100;
-        public int gold = 1500;
-
-        
+        public string name { get; set; } = "";
+        public string job { get; set; } = "";
+        public int lv { get; set; } = 01 ;
+        public int atk { get; set; } = 10;
+        public int def { get; set; } = 5;
+        public int hp { get; set; } = 100;
+        public int gold { get; set; } = 1500;
     }
 }
